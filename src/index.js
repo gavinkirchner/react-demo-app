@@ -10,20 +10,20 @@ function Square(props) {
     );
 }
 
-
+function ResetButton(props) {
+    return (
+        <button onClick={props.onClick}>Start Over</button>
+    );
+}
 
 class Board extends React.Component {
     constructor() {
         super();
-        this.state = {
-            squares: Array(9).fill(null),
-            xIsNext: true,
-            winner: null
-        };
+        this.state = this.getInitalState();
     }
     
     renderSquare(i) {
-        return <Square value={this.state.squares[i]} onClick={() => this.handleClick(i)}/>;
+        return <Square value={this.state.squares[i]} onClick={() => this.handleSquareClick(i)}/>;
     }
 
     render() {
@@ -37,25 +37,27 @@ class Board extends React.Component {
             <div>
                 <div className="status">{status}</div>
                 <div className="board-row">
-                {this.renderSquare(0)}
-                {this.renderSquare(1)}
-                {this.renderSquare(2)}
+                    {this.renderSquare(0)}
+                    {this.renderSquare(1)}
+                    {this.renderSquare(2)}
                 </div>
                 <div className="board-row">
-                {this.renderSquare(3)}
-                {this.renderSquare(4)}
-                {this.renderSquare(5)}
+                    {this.renderSquare(3)}
+                    {this.renderSquare(4)}
+                    {this.renderSquare(5)}
                 </div>
                 <div className="board-row">
-                {this.renderSquare(6)}
-                {this.renderSquare(7)}
-                {this.renderSquare(8)}
+                    {this.renderSquare(6)}
+                    {this.renderSquare(7)}
+                    {this.renderSquare(8)}
                 </div>
+                <br/>
+                <ResetButton onClick={() => this.handleResetClick()}/>
             </div>
         );
     }
 
-    handleClick(i) {
+    handleSquareClick(i) {
         const squares = this.state.squares.slice();
         let winner = this.state.winner;
         // if this square already has a value, do nothing
@@ -76,7 +78,25 @@ class Board extends React.Component {
             xIsNext: xIsNext,
             winner: winner
         });
-    }    
+    } 
+    
+    handleResetClick() {
+        if (!this.isGameActive() || window.confirm("Are you sure? This will clear the current game.")) {
+            this.setState(this.getInitalState());
+        }
+    }
+
+    getInitalState() {
+        return {
+            squares: Array(9).fill(null),
+            xIsNext: true,
+            winner: null
+        };
+    }
+
+    isGameActive() {
+        return this.state.winner === null && this.state.squares.includes('X');
+    }
 }
 
 class Game extends React.Component {

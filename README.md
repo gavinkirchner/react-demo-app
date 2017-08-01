@@ -1,4 +1,4 @@
-#REACT DEMO
+# REACT DEMO
 This is a demo of the React tutoral found [here](https://facebook.github.io/react/tutorial/tutorial.html).
 
 It is a Tic Tac Toe game, and was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
