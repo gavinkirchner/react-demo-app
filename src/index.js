@@ -17,10 +17,12 @@ function ResetButton(props) {
 }
 
 class Board extends React.Component {
-    constructor() {
-        super();
-        this.state = this.getInitalState();
-    }
+    // constructor() {
+    //     super();
+    //     this.state = this.getInitalState();
+    // }
+
+    state = this.getInitalState();
     
     renderSquare(i) {
         let winner = this.state.winner;
